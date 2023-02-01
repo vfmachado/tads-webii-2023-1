@@ -1,4 +1,5 @@
 # TADS IFRS - Rio Grande 2023 - 1º Semestre
+# Desenvolvimento WEB II
 
 # CRONOGRAMA
 
@@ -12,6 +13,7 @@
 ## Semana 04
 
 ## Semana 05
+- Trabalho I
 
 ## Semana 06
 
@@ -22,6 +24,7 @@
 ## Semana 09
 
 ## Semana 10
+- Trabalho II
 
 ## Semana 11
 
@@ -32,6 +35,7 @@
 ## Semana 14
 
 ## Semana 15
+- Trabalho III
 
 ## Semana 16
 
@@ -40,7 +44,7 @@
 ## Semana 18
 
 ## Semana 19
-- Trabalho da disciplina
+- Trabalho IV
 
 ## Semana 20
-- Revisão Exame
+- Trabalho do Exame
