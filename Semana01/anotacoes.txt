@@ -1,0 +1,29 @@
+
+INSTALAR NODEJS E NPM - VERSAO LTS
+** SUGESTAO: UTILIZAR O NVM
+NVM - NODE VERSION MANAGER - facilita a utilização de diferentes versões de NodeJS
+
+nvm --version
+node --version
+npm --version
+
+
+para executar um arquivo: 
+node nomeDoArquivo.js
+
+Coloca em modo de "vigia"
+node --watch nomeDoArquivo.js
+
+
+REVISEM!!!
+
+MÉTODOS COM ARRAYS EM JS
+https://www.w3schools.com/js/js_array_methods.asp
+
+
+PROMISES AND CALLBACKS
+ASYNC/AWAIT
+
+
+
+
