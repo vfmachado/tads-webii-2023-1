@@ -1,0 +1,20 @@
+REPLICAR A AULA...
+
+Criem uma lista de alguma tematica que vcs gostem como o data.js utilizado. Utilizem um tamanho significativo (20 itens)
+{
+    id
+    titulo
+    descricao
+    ...
+}
+
+Criar rotas para visualizar essa lista:
+
+/resources?page=1 -> retorna o id e título de  5 recursos de acordo com a página, se clicar no ID, redireciona para a pagina resources/:id
+/resources/:id   -> detalha o recurso, mostra só o objeto com este id
+/resources/sugestao -> sugere um recurso da lista aleatoriamente
+/resources/ranking -> retorna os 3 itens mais buscados pelo id
+
+
+
+* TODOS AS ROTAS SÃO COM MÉTODO GET
