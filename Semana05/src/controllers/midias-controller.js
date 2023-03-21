@@ -1,0 +1,69 @@
+const { moviesAndSeries } = require("../database/data");
+const { db } = require("../database/dbconnection");
+const { listaSeries } = require("../models/serie-dao");
+
+
+class MidiasController {
+
+    constructor(exemplo) {
+        console.log('Iniciando o controller Midias com ' + exemplo)
+    }
+
+    // adicionar uma view para inserir e depois chamar o form com os dados para injetar no banco
+    async inserirMidia(req, res) {
+        // tratar o req.body para receber os dados do form (pesquisem!)
+
+        // serie-dao => criar um método para inserir uma mídia no banco
+            // passando por parametro uma serie instanciada do meu model
+
+        // retornar um ok ou redirecionar para a pagina de listagem
+
+        // caso de errado, redireciona para uma pagina de erro
+    }
+
+    // incluir paginacao
+    async mostraMidias(req, res) {
+
+        // PARSER DO REQUEST 
+
+        let { page } = req.query; // destruturando o page de dentro do query
+        // const page = req.query.page
+
+        if (!page) page = 1;
+        // page = page ? page : 1;
+
+        // const listaFiltrada = moviesAndSeries.filter(item => {
+        //     return item.id > (page -1)*3 && item.id <= (page * 3)
+        // })
+
+        // const totalPages = Math.ceil(moviesAndSeries.length / 3);
+    
+        // CAMADA DE ACESSO / LOGICA
+
+        const lista = await listaSeries();
+
+        // VIEW 
+        res.render('midias', { 
+            name: 'Lista TOP 2023/1',
+            lista: lista,
+            currentPage: page,
+            totalPages: 1 
+        });
+
+    }
+
+    // trazer dado do banco
+    async detalhaMidia(req, res) {
+        const { id } = req.params;
+
+        const item = moviesAndSeries.find(i => i.id == id);
+
+        res.render('detalhes', {
+            name: 'Detalhe de item',
+            ...item
+        })
+
+    }
+}
+
+module.exports = { MidiasController };
