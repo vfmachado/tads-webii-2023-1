@@ -9,6 +9,8 @@
     <a class="w3-bar-item w3-button w3-hover-black" href="/users">USUARIOS</a>
     <% if (!locals.user) { %>
     <a class="w3-bar-item w3-button w3-hover-black" href="/users/login">LOGIN</a>
-    <% } %>
+    <% } else  { %>
+        <a class="w3-bar-item w3-button w3-hover-black" href="/users/logout">LOGOUT</a>
+        <% } %>
     <a class="w3-bar-item w3-button w3-hover-black" href="#">Link</a>
 </nav>

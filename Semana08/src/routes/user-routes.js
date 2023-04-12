@@ -33,6 +33,11 @@ userRoutes.get('/login', (req, res) => {
     };
 });
 
+userRoutes.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.redirect('/');
+})
+
 userRoutes.post('/login', (req, res) => usersController.login(req, res));
 
 module.exports = { userRoutes };
