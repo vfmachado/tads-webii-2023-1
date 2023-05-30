@@ -3,8 +3,8 @@ const typeorm = require("typeorm")
 const EntitySchema = require("typeorm").EntitySchema
 
 const UserSchema =  new EntitySchema({
-    name: "User",
-    tableName: "users", 
+    name: "User", // Will use table name `category` as default behaviour.
+    tableName: "users", // Optional: Provide `tableName` property to override the default behaviour for table name.
     columns: {
         id: {
             primary: true,
@@ -17,6 +17,10 @@ const UserSchema =  new EntitySchema({
         email: {
             type: "varchar",
             nullable: true
+        },
+        cpf: {
+            type: "varchar",
+            nullable: true
         }
     },
     relations: {
@@ -27,7 +31,6 @@ const UserSchema =  new EntitySchema({
         },
     },
 })
-
 
 const HobbiesSchema = new EntitySchema({
     name: "Hobby", 
@@ -47,25 +50,58 @@ const HobbiesSchema = new EntitySchema({
         },
     },
     relations: {
-        user: {
+        user: { 
             target: "User",
             type: "many-to-one",
-            joinColumn: {
-                name: 'userId',
-                referencedColumnName: 'id'
-            },
+            // joinColumn: {
+            //     name: 'userId',
+            //     referencedColumnName: 'id'
+            // },
             // cascade: true,
         },
     },
 
 })
 
+// NESTE EXEMPLO NOS MESMOS DEFINIMOS A TABELA QUE POSSUI A RELACAO m:n
+// PRINCIPAL VANTAGEM: MANUTENCAO DE CODIGO E OUTRAS COLUNAS.
+const FriendshipSchema = new EntitySchema({
+    name: 'Friendship',
+    tableName: 'friends',
+    columns: {
+        id: {
+            primary: true,
+            type: "int",
+            generated: true,
+        },
+    },
+    relations: {
+        userA: {
+            target: "User",
+            type: "many-to-one",
+            joinColumn: {
+                name: 'userIdA',
+                referencedColumnName: 'id'
+            },
+        },
+        userB: {
+            target: "User",
+            type: "many-to-one",
+            joinColumn: {
+                name: 'userIdB',
+                referencedColumnName: 'id'
+            }
+        },
+    }
+})
+
 const dataSource = new typeorm.DataSource({
     type: "sqlite",
     database: "teste02.db",
+    logging: true,
     synchronize: true,
     // entities: [require("./entity/Post"), require("./entity/Category")],
-    entities: [UserSchema, HobbiesSchema]
+    entities: [UserSchema, HobbiesSchema, FriendshipSchema]
 });
 
 

@@ -3,8 +3,8 @@ const typeorm = require("typeorm")
 const EntitySchema = require("typeorm").EntitySchema
 
 const UserSchema =  new EntitySchema({
-    name: "User",
-    tableName: "users", 
+    name: "User", // Will use table name `category` as default behaviour.
+    tableName: "users", // Optional: Provide `tableName` property to override the default behaviour for table name.
     columns: {
         id: {
             primary: true,
@@ -17,57 +17,33 @@ const UserSchema =  new EntitySchema({
         email: {
             type: "varchar",
             nullable: true
+        },
+        nickname: {
+            type: "varchar",
+            nullable: true,
         }
     },
     relations: {
-        myhobbies: {
-            target: "Hobby",
-            type: "one-to-many",
-            inverseSide: 'user',
-        },
-    },
-})
-
-
-const HobbiesSchema = new EntitySchema({
-    name: "Hobby", 
-    tableName: "hobbies", 
-    columns: {
-        id: {
-            primary: true,
-            type: "int",
-            generated: true,
-        },
-        name: {
-            type: "varchar",
-        },
-        frequency: {
-            type: "int",
-            nullable: true
-        },
-    },
-    relations: {
-        user: {
+        // CONEXOES ENTRE DOIS USUARIOS, O PROPRIO ORM GERA UMA TABELA PARA NOS, NESTE CASO users_connections_users INDICANDO QUE E UMA TABELA INTERMEDIARIA ENTRE users
+        // EXISTE A POSSIBILIDADE DE COMBINAR ESTES DOIS EXEMPLOS
+        // UTILIZAR UMA TABELA INTERMEDIARIA DEFINIDA POR NÓS.
+        connections: {
+            joinTable: true,
             target: "User",
-            type: "many-to-one",
-            joinColumn: {
-                name: 'userId',
-                referencedColumnName: 'id'
-            },
-            // cascade: true,
-        },
-    },
-
+            type: "many-to-many",
+        }
+    }
 })
-
+    
 const dataSource = new typeorm.DataSource({
     type: "sqlite",
-    database: "teste02.db",
+    database: "teste03.db",
     synchronize: true,
+    logging: true,
     // entities: [require("./entity/Post"), require("./entity/Category")],
-    entities: [UserSchema, HobbiesSchema]
+    entities: [UserSchema]
 });
-
+ 
 
 const express = require('express');
 const app = express();
@@ -102,29 +78,9 @@ app.get('/users/:id', async (req, res) => {
         where: {
             id
         },
-        relations: ['myhobbies']
+        relations: ['connections']
     });
     return res.json(user);
-});
-
-app.get('/hobby/:id', async (req, res) => {
-    const id = req.params.id
-    const hobbiesRepo = dataSource.getRepository(HobbiesSchema);
-    const user = await hobbiesRepo.findOne({
-        where: {
-            id
-        },
-        relations: ['user']
-    });
-    return res.json(user);
-});
-
-
-app.get('/users-delete/:id', async (req, res) => {
-    const id = req.params.id;
-    const usersRepository = dataSource.getRepository(UserSchema);
-    usersRepository.delete({ id });
-    return res.redirect('/');
 });
 
 

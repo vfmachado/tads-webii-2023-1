@@ -9,14 +9,6 @@ const usersController = new UsersController();
 
 userRoutes.post('/', isAuth, isAdmin, async (req, res) => {
     return usersController.create(req, res);
-    // console.log('CRIACAO DE USUARIO, CHEGOU  ' + JSON.stringify(req.body));
-    // const user = req.body;
-    // try {
-    //     await usersController.create(user);
-    //     res.redirect('/users');
-    // } catch (error) {
-    //     res.redirect('/erro.html')
-    // }
 });
 
 userRoutes.get('/', isAuth, (req, res) => {
