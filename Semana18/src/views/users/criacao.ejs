@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/users" method="post" enctype="multipart/form-data">
+        <label>Nome</label>
+        <input type="text" name="name"><br><br>
+
+        <label>Email</label>
+        <input type="text" name="email"><br><br>
+
+        <label>Nickname</label>
+        <input type="text" name="nickame" value="<%= nickname %>"><br><br>
+
+        <input type="file" name="meuarquivo" id="">
+        <input type="submit" value="Enviar">
+
+        <br>
+        <br>
+
+        <pre>
+            <%= JSON.stringify(cityWeather, null, 2) %>
+        </pre>
+
+    </form>
+</body>
+</html>
